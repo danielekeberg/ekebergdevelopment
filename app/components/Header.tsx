@@ -1,33 +1,9 @@
 'use client';
-import { useState, useEffect } from "react";
-import Dashboard from "@/app/components/Dashboard";
-import Notes from "@/app/components/Notes";
-import Projects from "@/app/components/Projects";
-import Login from "@/app/components/Login";
+import { useState } from "react";
 
-export default function Home() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [isActive, setIsActive] = useState("overview");
-
-  const success = process.env.NEXT_PUBLIC_TEST;
-  if(!success) {
-      return;
-  }
-
-  const signout = () => {
-    localStorage.clear();
-    window.location.reload();
-  }
-
-  useEffect(() => {
-    if(localStorage.getItem("token") === success) {
-      setLoggedIn(true);
-    }
-  }, [])
-  return (
-    <>
-      {loggedIn ?
-      <>
+export default function Header() {
+    const [isActive, setIsActive] = useState("overview");
+    return(
         <div className="flex bg-[#131313] items-center justify-between font-bold px-[15%] py-5 border-b border-neutral-800 mb-10">
             <nav className="grid grid-cols-3 gap-2 text-sm text-neutral-500">
                 {[
@@ -41,34 +17,16 @@ export default function Home() {
                         className="w-full text-left"
                     >
                         <div className={`flex gap-2 py-2 px-4 cursor-pointer hover:bg-neutral-800 hover:text-[#eae8e0] items-center rounded-xl w-full ${isActive === item.id ? 'bg-neutral-800 text-[#eae8e0]' : ''}`}>
-                            <img src={item.icon} className="hidden md:block h-5 w-5" alt={item.label} />
+                            <img src={item.icon} className="h-5 w-5" alt={item.label} />
                             <p>{item.label}</p>
                         </div>
                     </button>
                 ))}                
             </nav>
-            <button className="gap-2 text-neutral-500 hidden md:flex">
+            <button className="flex gap-2 text-neutral-500">
                 <img src="/dashboard.svg" className="h-5 w-5" />
                 <p>Logout</p>
             </button>
         </div>
-        {isActive === "overview" ? 
-        <Dashboard />
-        :
-        null}
-        {isActive === "notes" ? 
-        <Notes />
-        :
-        null}
-        {isActive === "projects" ? 
-        <Projects />
-        :
-        null}
-      </>
-      :
-      <>
-        <Login />
-      </>}
-    </>
-  );
+    )
 }

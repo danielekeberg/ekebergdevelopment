@@ -1,15 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #eae8e0;
   --foreground: #171717;
-  color: #1b294b
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #e0e0e0;
-    --foreground: #171717;
+    --background: #111111;
+    --foreground: #eae8e0;
   }
 }
 
@@ -20,21 +19,15 @@ body {
 }
 
 .active {
-  border: 1px solid hsl(217 91% 60%);
   color: hsl(217 91% 60%);
-  background: #3c83f610;
 }
 
 .maintenance {
-  border: 1px solid hsl(34, 64%, 50%);
   color: hsl(34, 64%, 50%);
-  background: #f6ac3c10;
 }
 
 .completed {
-  border: 1px solid hsl(101, 85%, 23%);
   color: hsl(101, 85%, 23%);
-  background: #0d803910;
 }
 
 ::-webkit-scrollbar {

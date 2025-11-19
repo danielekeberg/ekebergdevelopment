@@ -131,75 +131,76 @@ export default function Dashboard() {
     }
 
     return(
-        <div className="flex flex-col gap-10">
-            {loading && (
-                <div className="h-[90vh] flex justify-center items-center">
-                    <Spinner />
-                </div>
-            )}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-8">
-                <div className="border border-neutral-500/30 p-5 rounded-xl bg-white shadow">
-                    <div className="flex justify-between items-center">
-                        <p className="text-neutral-600 font-bold">Total Clients</p>
-                        <img src="users-b.svg" className="h-6 w-6" />
-                    </div>
-                    <h1 className="text-4xl font-bold">{formatNumber(stats.totalClients)}</h1>
-                    <p className="text-sm text-neutral-600">+{stats.newThisMonth} this month</p>
-                </div>
-                <div className="border border-neutral-500/30 p-5 rounded-xl bg-white shadow">
-                    <div className="flex justify-between items-center">
-                        <p className="text-neutral-600 font-bold">Active Projects</p>
-                        <img src="folder.svg" className="h-6 w-6" />
-                    </div>
-                    <h1 className="text-4xl font-bold">{formatNumber(stats.activeProjects)}</h1>
-                    <p className="text-sm text-neutral-600">Across all clients</p>
-                </div>
-                <div className="border border-neutral-500/30 p-5 rounded-xl bg-white shadow">
-                    <div className="flex justify-between items-center">
-                        <p className="text-neutral-600 font-bold">Total Revenue</p>
-                        <img src="pricing-b.svg" className="h-6 w-6" />
-                    </div>
-                    <h1 className="text-4xl font-bold">kr {formatNumber(stats.totalRevenue)}</h1>
-                    <p className="text-sm text-neutral-600">Year to date</p>
-                </div>
-                <div className="border border-neutral-500/30 p-5 rounded-xl bg-white shadow">
-                    <div className="flex justify-between items-center">
-                        <p className="text-neutral-600 font-bold">Maintenance Clients</p>
-                        <img src="maintenance-b.svg" className="h-6 w-6" />
-                    </div>
-                    <h1 className="text-4xl font-bold">{formatNumber(stats.maintenanceClients)}</h1>
-                    <p className="text-sm text-neutral-600">Recurring revenue</p>
-                </div>
-                <div className="border border-neutral-500/30 p-5 rounded-xl bg-white shadow">
-                    <div className="flex justify-between items-center">
-                        <p className="text-neutral-600 font-bold">New Accepted Clients</p>
-                        <img src="maintenance-b.svg" className="h-6 w-6" />
-                    </div>
-                    <h1 className="text-4xl font-bold">{formatNumber(newClients)}</h1>
-                    <p className="text-sm text-neutral-600">{formatNumber(pendingClients)} Pending clients</p>
-                </div>
+        <div className="px-5 md:px-[15%]">
+            <div className="mb-5">
+                <h1 className="text-2xl font-bold mb-2">Overview</h1>
+                <p className="text-sm text-neutral-500">Monitor your business metrics and client activity</p>
             </div>
-            <div>
-                <h1 className="text-4xl font-bold mb-5">Recent Clients</h1>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {clients.map((client) => (
-                        <div key={client.id} className="border flex justify-between items-center group bg-white shadow-sm hover:shadow-md transition-shadow duration-300 border-neutral-500/30 p-5 rounded-xl cursor-pointer">
-                            <div>
-                                <div className="flex gap-5 items-center">
-                                    <p className="text-2xl font-bold group-hover:text-blue-500 transition duration-150">{client.name}</p>
-                                    <p className={`hidden md:block px-2 rounded-full text-sm ${client.status}`}>{client.status}</p>
-                                </div>
-                                <p className="text-neutral-700">{client.email}</p>
-                                <div className="flex gap-5 items-center mt-5 text-neutral-700">
-                                    <p>{client.projects} project{client.projects !== 1 ? "s" : ""}</p>
-                                    <p className="text-blue-500 text-xl font-bold">kr {formatNumber(client.revenue)}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <img src="/arrow.svg" className="h-8 w-8 hover:bg-blue-500 p-2 rounded-full" />
-                            </div>
+            <div className="flex flex-col gap-10">
+                {loading && (
+                    <div className="h-[90vh] flex justify-center items-center">
+                        <Spinner />
+                    </div>
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-8">
+                    <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
+                        <div className="flex justify-between items-center">
+                            <p className="text-neutral-500 mb-3 text-sm font-bold">Total Revenue</p>
+                            <img src="pricing-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
                         </div>
-                    ))}
+                        <h1 className="text-4xl font-bold">kr {formatNumber(stats.totalRevenue)}</h1>
+                        <p className="text-sm text-neutral-600 mt-2 font-bold">Year to date</p>
+                    </div>
+                    <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
+                        <div className="flex justify-between items-center">
+                            <p className="text-neutral-500 mb-3 text-sm font-bold">Total Clients</p>
+                            <img src="users-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
+                        </div>
+                        <h1 className="text-4xl font-bold">{formatNumber(stats.totalClients)}</h1>
+                        <p className="text-sm text-neutral-600 mt-2 font-bold">+{stats.newThisMonth} this month</p>
+                    </div>
+                    <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
+                        <div className="flex justify-between items-center">
+                            <p className="text-neutral-500 mb-3 text-sm font-bold">Maintenance Clients</p>
+                            <img src="maintenance-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
+                        </div>
+                        <h1 className="text-4xl font-bold">{formatNumber(stats.maintenanceClients)}</h1>
+                        <p className="text-sm text-neutral-600 mt-2 font-bold">Recurring revenue</p>
+                    </div>
+                    <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
+                        <div className="flex justify-between items-center">
+                            <p className="text-neutral-500 mb-3 text-sm font-bold">Pending Clients</p>
+                            <img src="maintenance-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
+                        </div>
+                        <h1 className="text-4xl font-bold">{formatNumber(pendingClients)}</h1>
+                        <p className="text-sm text-neutral-600 mt-2 font-bold">{formatNumber(newClients)} new accepted clients</p>
+                    </div>
+                </div>
+                <div className="bg-[#131313] border border-neutral-800 rounded-xl">
+                    <div className="p-7 border-b border-neutral-800">
+                        <h3 className="text-xl font-bold">All Clients</h3>
+                        <p className="text-sm text-neutral-500">Manage and monitor your current clients</p>
+                    </div>
+                    <table className="min-w-full text-left text-sm text-neutral-500">
+                        <thead className="border-b border-neutral-800">
+                            <tr className="grid grid-cols-2 md:grid-cols-4">
+                                <th className="px-7 py-4">Client</th>
+                                <th className="px-7 py-4 hidden md:block">Email</th>
+                                <th className="px-7 py-4 hidden md:block">Status</th>
+                                <th className="px-7 py-4">Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {clients.map((client) => (
+                                <tr key={client.id} className="grid grid-cols-2 md:grid-cols-4">
+                                    <td className="text-[#eae8e0] font-bold px-7 py-4">{client.name}</td>
+                                    <td className="px-7 py-4 hidden md:block">{client.email}</td>
+                                    <td className={`px-7 py-4 ${client.status} hidden md:block`}>{client.status}</td>
+                                    <td className="text-[#eae8e0] font-bold px-7 py-4">kr {formatNumber(client.revenue)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

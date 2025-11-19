@@ -16,6 +16,7 @@ export default function Projects() {
     const [title, setTitle] = useState("");
     const [url, setUrl] = useState("");
     const [note, setNote] = useState("");
+    const [client, setClient] = useState("");
 
     useEffect(() => {
         async function fetchProjects() {
@@ -59,36 +60,51 @@ export default function Projects() {
     }
 
     return(
-        <div>
-            <div className="flex justify-between items-center">
-                <div>
-                    <h1 className="text-4xl font-bold">Projects</h1>
-                    <p className="text-neutral-600">Track your ongoing work</p>
+        <div className="px-5 md:px-[15%]">
+            <div className="flex justify-between items-center mb-5">
+                <div className="mb-5">
+                    <h1 className="text-2xl font-bold mb-2">Projects</h1>
+                    <p className="text-sm text-neutral-500">Showcase your previous work and achievements</p>
                 </div>
-                <button onClick={toggleNewProject} className="hidden md:flex bg-blue-500 py-2 px-5 rounded-full gap-2 text-white font-bold cursor-pointer hover:bg-blue-500/80 items-center">
-                    <img src="/add.svg" className="h-5 w-5" />
-                    <p>New Project</p>
-                </button>
+                <button onClick={toggleNewProject} className="bg-[#eae8e0] py-2 px-5 rounded-xl hidden md:flex gap-2 text-[#131313] font-bold cursor-pointer hover:bg-[#e5e3d9] items-center">
+                        <img src="/add.svg" className="h-5 w-5" />
+                        <p>Add Note</p>
+                    </button>
             </div>
             {isOpen && (
-                <>
+                <div className="bg-[#131313] p-7 border-neutral-800 border mb-10 rounded-xl">
                     <form onSubmit={addProject} className="grid grid-cols-1 gap-5 mt-5">
-                        <input type="text" className="border border-neutral-300 p-3 rounded-full focus:outline-blue-500" onChange={(e) => setTitle(e.target.value)} placeholder="Project title..." id="title" />
-                        <input type="text" className="border border-neutral-300 p-3 rounded-full focus:outline-blue-500" onChange={(e) => setUrl(e.target.value)} placeholder="Project url..." id="text" />
-                        <textarea className="border border-neutral-300 p-3 rounded-xl focus:outline-blue-500 resize-none" onChange={(e) => setNote(e.target.value)} placeholder="Project note..." id="text" />
+                        <div className="grid grid-cols-2 gap-5">
+                            <div className="flex flex-col">
+                                <label className="text-neutral-500 mb-2 font-bold">Project Title*</label>
+                                <input type="text" className="border border-neutral-800 p-3 rounded-xl focus:outline-neutral-500" onChange={(e) => setTitle(e.target.value)} id="title" />
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="text-neutral-500 mb-2 font-bold">Client</label>
+                                <input type="text" className="border border-neutral-800 p-3 rounded-xl focus:outline-neutral-500" onChange={(e) => setClient(e.target.value)} id="title" />
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="text-neutral-500 mb-2 font-bold">Project URL</label>
+                                <input type="text" className="border border-neutral-800 p-3 rounded-xl focus:outline-neutral-500" onChange={(e) => setUrl(e.target.value)} id="title" />
+                            </div>
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-neutral-500 mb-2 font-bold">Description</label>
+                            <textarea className="border border-neutral-800 p-3 rounded-xl focus:outline-neutral-500 resize-none" onChange={(e) => setNote(e.target.value)} id="title" />
+                        </div>
                         <div className="flex gap-2 mt-5">
-                            <button type="submit" className="py-2 px-3 rounded-full font-bold bg-blue-500 text-white cursor-pointer hover:bg-blue-500/80 border-neutral-300 border transition duration-300">Save Project</button>
-                            <button onClick={toggleNewProject} className="py-2 px-3 rounded-full font-bold bg-white cursor-pointer hover:bg-blue-500 border-neutral-300 hover:text-white border transition duration-300">Cancel</button>
+                            <button type="submit" className="py-2 px-3 rounded-xl font-bold bg-[#eae8e0] text-[#131313] cursor-pointer hover:bg-[#e5e3d9] border-neutral-300 border transition duration-300">Save Note</button>
+                            <button className="py-2 px-3 rounded-xl font-bold bg-[#131313] text-[#eae8e0] cursor-pointer hover:bg-[#151515] border-neutral-800 border transition duration-300">Cancel</button>
                         </div>
                     </form>
                     
-                </>
+                </div>
             )}
-            <div className="md:p-5 mt-10 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-10">
                 {projects.map((project) => (
-                    <Link href={project.url} target="_blank"  key={project.id} className="bg-white p-5 rounded-xl shadow">
+                    <Link href={project.url} target="_blank"  key={project.id} className="bg-[#131313] border border-neutral-800 p-5 rounded-xl  hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
                         <h1 className="text-xl font-bold">{project.title}</h1>
-                        <p className="text-sm text-neutral-600">{project.note}</p>
+                        <p className="text-sm text-neutral-500">{project.note}</p>
                     </Link>
                 ))}
             </div>
