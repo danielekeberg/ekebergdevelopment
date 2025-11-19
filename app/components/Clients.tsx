@@ -95,7 +95,7 @@ export default function Clients() {
                     <h1 className="text-4xl font-bold">Clients</h1>
                     <p className="text-neutral-600">Manage your client relationships</p>
                 </div>
-                <button onClick={toggleAdd} className="bg-blue-500 py-2 px-5 rounded-full flex gap-2 text-white font-bold cursor-pointer hover:bg-blue-500/80 items-center">
+                <button onClick={toggleAdd} className="bg-blue-500 py-2 px-5 rounded-full hidden md:flex gap-2 text-white font-bold cursor-pointer hover:bg-blue-500/80 items-center">
                     <img src="/add.svg" className="h-5 w-5" />
                     <p>New Client</p>
                 </button>
@@ -154,7 +154,7 @@ export default function Clients() {
             {loading && (
                 <Spinner />
             )}
-            <div className="mt-10 grid grid-cols-3 gap-3">
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-3">
                 {clients.map((client) => (
                     <div key={client.id} className="border flex justify-between items-center group bg-white shadow-sm hover:shadow-md transition-shadow duration-300 border-neutral-500/30 p-5 rounded-xl cursor-pointer">
                         <div>

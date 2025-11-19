@@ -32,6 +32,8 @@ export default function Dashboard() {
         maintenanceClients: 0,
         newThisMonth: 0,
     })
+    const [newClients, setNewClients] = useState(0);
+    const [pendingClients, setPendingClients] = useState(0);
 
     const [loading, setLoading] = useState(true);
 
@@ -74,8 +76,36 @@ export default function Dashboard() {
                 maintenanceClients,
                 newThisMonth,
             });
-            
         };
+
+        const fetchNewClients = async () => {
+            const { data, error } = await supabase
+                .from("notes")
+                .select("status")
+                .eq('status', 'accepted')
+            if(error) {
+                console.error("Error fetching new clients:", error);
+                return;
+            }
+            const newStats = data.length
+            setNewClients(newStats);
+        }
+        fetchNewClients();
+
+        const fetchPendingClients = async () => {
+            const { data, error } = await supabase
+                .from("notes")
+                .select("status")
+                .eq('status', 'pending')
+            if(error) {
+                console.error("Error fetching new clients:", error);
+                return;
+            }
+            const newStats = data.length
+            setPendingClients(newStats);
+        }
+        fetchPendingClients();
+
         const fetchRecent = async () => {
             const { data, error } = await supabase
                 .from("clients")
@@ -91,7 +121,10 @@ export default function Dashboard() {
         fetchRecent();
         fetchStats();
         setLoading(false);
+        
     },[])
+
+    console.log(newClients)
 
     const formatNumber = (value:number) => {
         return new Intl.NumberFormat("no-NO").format(value);
@@ -104,7 +137,7 @@ export default function Dashboard() {
                     <Spinner />
                 </div>
             )}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-8">
                 <div className="border border-neutral-500/30 p-5 rounded-xl bg-white shadow">
                     <div className="flex justify-between items-center">
                         <p className="text-neutral-600 font-bold">Total Clients</p>
@@ -136,6 +169,14 @@ export default function Dashboard() {
                     </div>
                     <h1 className="text-4xl font-bold">{formatNumber(stats.maintenanceClients)}</h1>
                     <p className="text-sm text-neutral-600">Recurring revenue</p>
+                </div>
+                <div className="border border-neutral-500/30 p-5 rounded-xl bg-white shadow">
+                    <div className="flex justify-between items-center">
+                        <p className="text-neutral-600 font-bold">New Accepted Clients</p>
+                        <img src="maintenance-b.svg" className="h-6 w-6" />
+                    </div>
+                    <h1 className="text-4xl font-bold">{formatNumber(newClients)}</h1>
+                    <p className="text-sm text-neutral-600">{formatNumber(pendingClients)} Pending clients</p>
                 </div>
             </div>
             <div>
