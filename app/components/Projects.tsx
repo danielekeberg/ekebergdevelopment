@@ -15,6 +15,7 @@ export default function Projects() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [title, setTitle] = useState("");
     const [url, setUrl] = useState("");
+    const [note, setNote] = useState("");
 
     useEffect(() => {
         async function fetchProjects() {
@@ -44,10 +45,15 @@ export default function Projects() {
             .from("projects")
             .insert({
                 title,
-                url
+                url,
+                note
             })
             .select()
             .single()
+        if(error) {
+            console.error("Error adding project:", error);
+            return;
+        }
         setProjects(prev => [data as Project, ...prev])
         toggleNewProject();
     }
@@ -69,6 +75,7 @@ export default function Projects() {
                     <form onSubmit={addProject} className="grid grid-cols-1 gap-5 mt-5">
                         <input type="text" className="border border-neutral-300 p-3 rounded-full focus:outline-blue-500" onChange={(e) => setTitle(e.target.value)} placeholder="Project title..." id="title" />
                         <input type="text" className="border border-neutral-300 p-3 rounded-full focus:outline-blue-500" onChange={(e) => setUrl(e.target.value)} placeholder="Project url..." id="text" />
+                        <textarea className="border border-neutral-300 p-3 rounded-xl focus:outline-blue-500 resize-none" onChange={(e) => setNote(e.target.value)} placeholder="Project note..." id="text" />
                         <div className="flex gap-2 mt-5">
                             <button type="submit" className="py-2 px-3 rounded-full font-bold bg-blue-500 text-white cursor-pointer hover:bg-blue-500/80 border-neutral-300 border transition duration-300">Save Project</button>
                             <button onClick={toggleNewProject} className="py-2 px-3 rounded-full font-bold bg-white cursor-pointer hover:bg-blue-500 border-neutral-300 hover:text-white border transition duration-300">Cancel</button>
