@@ -108,12 +108,11 @@ export default function Notes() {
         setNotes(prev => prev.filter(c => c.id !== id));
         setNotes(prev => [data as Note, ...prev])
     }
-
     return(
         <div className="px-5 md:px-[15%]">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
                 <div className="mb-5">
-                    <h1 className="text-2xl font-bold mb-2">Overview</h1>
+                    <h1 className="text-2xl font-bold mb-2">Client Notes</h1>
                     <p className="text-sm text-neutral-500">Track potential clients and company details</p>
                 </div>
                 <div>

@@ -45,18 +45,20 @@ export default function Login() {
     }
     return(
         <div className="h-screen w-full flex flex-col justify-center items-center">
-            <div className="bg-neutral-200 m-2 w-100 p-10 rounded-xl shadow-xl border border-neutral-500/20 relative">
+            <h1 className="text-[#eae8e0] text-3xl mb-1 font-bold">Welcome back</h1>
+            <p className="text-neutral-500 mb-10">Sign in to access your dashboard</p>
+            <div className="bg-[#131313] m-2 w-full md:w-125 p-10 rounded-xl shadow-xl border border-neutral-500/20 relative text-neutral-500 text-sm">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <div className="flex flex-col gap-2">
-                        <label>Username</label>
-                        <input onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Username" className="border border-black rounded-md p-2 bg-neutral-300/50" />
+                        <label>Email</label>
+                        <input onChange={(e) => setUsername(e.target.value)} type="text" placeholder="you@example.com" className="border border-neutral-800 text-sm rounded-md p-2 bg-[#111111] focus:outline-neutral-800" />
                     </div>
                     <div className="flex flex-col gap-2">
                         <label>Password</label>
-                        <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="border border-black rounded-md p-2 bg-neutral-300/50" />
+                        <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="border border-neutral-800 text-sm rounded-md p-2 bg-[#111111] focus:outline-neutral-800" />
                     </div>
                     <div>
-                        <button type="submit" className="bg-blue-500 text-white font-bold w-full py-2 rounded-md cursor-pointer hover:bg-blue-500/80">Login</button>
+                        <button type="submit" className="bg-[#eae8e0] text-[#131313] font-bold w-full py-2 rounded-md cursor-pointer hover:bg-[#]e5e3d9">Sign in</button>
                     </div>
                     
                 </form>

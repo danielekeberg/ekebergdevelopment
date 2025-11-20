@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import Spinner from "@/app/components/Loader";
+import Link from "next/link";
 
 type Client = {
   id: number;
@@ -138,15 +139,13 @@ export default function Dashboard() {
             </div>
             <div className="flex flex-col gap-10">
                 {loading && (
-                    <div className="h-[90vh] flex justify-center items-center">
-                        <Spinner />
-                    </div>
+                    <Spinner />
                 )}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-8">
                     <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
                         <div className="flex justify-between items-center">
                             <p className="text-neutral-500 mb-3 text-sm font-bold">Total Revenue</p>
-                            <img src="pricing-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
+                            <img src="/pricing.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
                         </div>
                         <h1 className="text-4xl font-bold">kr {formatNumber(stats.totalRevenue)}</h1>
                         <p className="text-sm text-neutral-600 mt-2 font-bold">Year to date</p>
@@ -154,7 +153,7 @@ export default function Dashboard() {
                     <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
                         <div className="flex justify-between items-center">
                             <p className="text-neutral-500 mb-3 text-sm font-bold">Total Clients</p>
-                            <img src="users-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
+                            <img src="/users.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
                         </div>
                         <h1 className="text-4xl font-bold">{formatNumber(stats.totalClients)}</h1>
                         <p className="text-sm text-neutral-600 mt-2 font-bold">+{stats.newThisMonth} this month</p>
@@ -162,7 +161,7 @@ export default function Dashboard() {
                     <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
                         <div className="flex justify-between items-center">
                             <p className="text-neutral-500 mb-3 text-sm font-bold">Maintenance Clients</p>
-                            <img src="maintenance-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
+                            <img src="/maintenance.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
                         </div>
                         <h1 className="text-4xl font-bold">{formatNumber(stats.maintenanceClients)}</h1>
                         <p className="text-sm text-neutral-600 mt-2 font-bold">Recurring revenue</p>
@@ -170,7 +169,7 @@ export default function Dashboard() {
                     <div className="border border-neutral-500/30 p-5 rounded-xl bg-[#131313] hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
                         <div className="flex justify-between items-center">
                             <p className="text-neutral-500 mb-3 text-sm font-bold">Pending Clients</p>
-                            <img src="maintenance-b.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
+                            <img src="/add-user.svg" className="h-10 w-10 bg-[#181818] rounded-xl p-2" />
                         </div>
                         <h1 className="text-4xl font-bold">{formatNumber(pendingClients)}</h1>
                         <p className="text-sm text-neutral-600 mt-2 font-bold">{formatNumber(newClients)} new accepted clients</p>
@@ -192,10 +191,10 @@ export default function Dashboard() {
                         </thead>
                         <tbody>
                             {clients.map((client) => (
-                                <tr key={client.id} className="grid grid-cols-2 md:grid-cols-4">
-                                    <td className="text-[#eae8e0] font-bold px-7 py-4">{client.name}</td>
+                                <tr key={client.id} className="grid grid-cols-2 md:grid-cols-4 hover:bg-[#161616]">
+                                    <td className="text-[#eae8e0] font-bold px-7 py-4"><Link href={`../client/${client.id}`}>{client.name}</Link></td>
                                     <td className="px-7 py-4 hidden md:block">{client.email}</td>
-                                    <td className={`px-7 py-4 ${client.status} hidden md:block`}>{client.status}</td>
+                                    <td className={`px-7 py-4 ${client.status} hidden md:block font-bold`}>{client.status?.toUpperCase()}</td>
                                     <td className="text-[#eae8e0] font-bold px-7 py-4">kr {formatNumber(client.revenue)}</td>
                                 </tr>
                             ))}

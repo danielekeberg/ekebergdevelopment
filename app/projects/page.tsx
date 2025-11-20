@@ -1,14 +1,11 @@
 'use client';
 import { useState, useEffect } from "react";
-import Dashboard from "@/app/components/Dashboard";
-import Notes from "@/app/components/Notes";
 import Projects from "@/app/components/Projects";
 import Login from "@/app/components/Login";
 import Header from "@/app/components/Header";
 
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isActive, setIsActive] = useState("overview");
 
   const success = process.env.NEXT_PUBLIC_TEST;
   if(!success) {
@@ -25,7 +22,7 @@ export default function Home() {
       {loggedIn ?
       <>
         <Header />
-        <Dashboard />
+        <Projects />
       </>
       :
       <>
