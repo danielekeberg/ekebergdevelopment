@@ -107,15 +107,15 @@ export default function Projects() {
                     </div>
                     <table className="min-w-full text-left text-sm text-neutral-500">
                         <thead>
-                            <tr className="grid grid-cols-3">
+                            <tr className="grid grid-cols-1 md:grid-cols-3">
                                 <th className="px-7 py-4">Title</th>
-                                <th className="px-7 py-4">Date</th>
+                                <th className="px-7 py-4 hidden md:block">Date</th>
                                 <th className="px-7 py-4 hidden md:block">Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             {projects.map((project) => (
-                                <tr key={project.id} className="grid grid-cols-3 hover:bg-[#161616] border-t border-neutral-800">
+                                <tr key={project.id} className="grid grid-cols-1 md:grid-cols-3 hover:bg-[#161616] border-t border-neutral-800">
                                     <td className="text-[#eae8e0] font-bold px-7 py-4"><Link target="_blank" href={project.url}>{project.title}</Link></td>
                                     <td className="px-7 py-4 hidden md:block">{new Date(project.created_at).toLocaleDateString()}</td>
                                     <td className="px-7 py-4 hidden md:block">{project.note}</td>

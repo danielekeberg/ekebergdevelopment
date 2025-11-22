@@ -207,7 +207,7 @@ export default function Notes() {
                         <p className="text-sm text-neutral-500">Manage and monitor possible clients</p>
                     </div>
                     <div className="flex gap-2 items-end">
-                        <div className="flex gap-5">
+                        <div className="gap-5 hidden md:flex">
                             <div className="flex gap-2 cursor-pointer">
                                 <input type="checkbox" id="accepted" className="w-5 h-5 appearance-none 
                                         border border-gray-400 rounded 
@@ -231,17 +231,17 @@ export default function Notes() {
                 </div>
                 <table className="min-w-full text-left text-sm text-neutral-500">
                     <thead>
-                        <tr className="grid grid-cols-2 md:grid-cols-4">
+                        <tr className="grid grid-cols-3 md:grid-cols-4">
                             <th className={`px-7 py-4 ${sortBy === "standard" ? "text-[#eae8e0] font-bold" : ""}`} onClick={() => { setSortBy("standard")}}>Client</th>
-                            <th className={`px-7 py-4 ${sortBy === "location" ? "text-[#eae8e0] font-bold" : ""} hidden md:block`} onClick={() => { setSortBy("location")}}>Location</th>
-                            <th className={`px-7 py-4 ${sortBy === "status" ? "text-[#eae8e0] font-bold" : ""} hidden md:block text-right`} onClick={() => { setSortBy("status")}}>Status</th>
-                            <th className="px-7 py-4 hidden md:block text-right">Respond</th>
+                            <th className={`px-7 py-4 ${sortBy === "location" ? "text-[#eae8e0] font-bold" : ""}`} onClick={() => { setSortBy("location")}}>Location</th>
+                            <th className={`px-7 py-4 ${sortBy === "status" ? "text-[#eae8e0] font-bold" : ""} text-right hidden md:block`} onClick={() => { setSortBy("status")}}>Status</th>
+                            <th className="px-7 py-4 text-right">Respond</th>
                         </tr>
                     </thead>
                     <tbody>
                         {sorted.map((note) => (
-                            <tr key={note.id} className="grid grid-cols-2 md:grid-cols-4 hover:bg-[#161616] border-t border-neutral-800">
-                                <td className={`px-7 py-4 font-bold ${sortBy === "standard" ? "text-[#eae8e0]" : ""}`}>{note.title}</td>
+                            <tr key={note.id} className="grid grid-cols-3 md:grid-cols-4 hover:bg-[#161616] border-t border-neutral-800">
+                                <td className={`px-7 py-4 font-bold ${sortBy === "standard" ? "text-[#eae8e0]" : ""} overflow-hidden`}>{note.title}</td>
                                 <td className={`px-7 py-4 ${sortBy === "location" ? "text-[#eae8e0]" : ""}`}>{note.location ? note.location : 'No location'}</td>
                                 <td className={`px-7 py-4 ${sortBy === "status" ? "text-[#eae8e0]" : ""} text-right ${note.status} hidden md:block ${note.status === "declined" ? 'text-red-900' : ''} ${note.status === "accepted" ? 'text-green-900' : ''}`}>{note.status}</td>
                                 <td className={`text-right flex gap-2 justify-end`}>
