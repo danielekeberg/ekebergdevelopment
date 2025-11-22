@@ -8,6 +8,7 @@ type Project = {
     title: string;
     note: string;
     url: string;
+    created_at: string;
 }
 
 export default function Projects() {
@@ -29,13 +30,14 @@ export default function Projects() {
             }
             if(data) {
                 const project = (data || []) as Project[];
-                setProjects(project);
-                console.log("Projects from supabase:", data)
+                const sorted = [...project].sort((a, b) => a.title.localeCompare(b.title))
+                setProjects(sorted);
             }
         }
         fetchProjects();
     },[])
 
+    
     const toggleNewProject = () => {
         setIsOpen(prev => !prev)
     }
@@ -59,6 +61,8 @@ export default function Projects() {
         toggleNewProject();
     }
 
+    
+
     return(
         <div className="px-5 md:px-[15%]">
             <div className="flex justify-between items-center mb-5">
@@ -80,11 +84,7 @@ export default function Projects() {
                                 <input type="text" className="border border-neutral-800 p-3 rounded-xl focus:outline-neutral-500" onChange={(e) => setTitle(e.target.value)} id="title" />
                             </div>
                             <div className="flex flex-col">
-                                <label className="text-neutral-500 mb-2 font-bold">Client</label>
-                                <input type="text" className="border border-neutral-800 p-3 rounded-xl focus:outline-neutral-500" onChange={(e) => setClient(e.target.value)} id="title" />
-                            </div>
-                            <div className="flex flex-col">
-                                <label className="text-neutral-500 mb-2 font-bold">Project URL</label>
+                                <label className="text-neutral-500 mb-2 font-bold">Project URL*</label>
                                 <input type="text" className="border border-neutral-800 p-3 rounded-xl focus:outline-neutral-500" onChange={(e) => setUrl(e.target.value)} id="title" />
                             </div>
                         </div>
@@ -100,14 +100,30 @@ export default function Projects() {
                     
                 </div>
             )}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-10">
-                {projects.map((project) => (
-                    <Link href={project.url} target="_blank"  key={project.id} className="bg-[#131313] border border-neutral-800 p-5 rounded-xl  hover:shadow-[0_2px_15px_rgba(255,255,255,0.2)] transition duration-200">
-                        <h1 className="text-xl font-bold">{project.title}</h1>
-                        <p className="text-sm text-neutral-500">{project.note}</p>
-                    </Link>
-                ))}
-            </div>
+            <div className="bg-[#131313] border border-neutral-800 rounded-xl">
+                    <div className="p-7 border-b border-neutral-800">
+                        <h3 className="text-xl font-bold">All Clients</h3>
+                        <p className="text-sm text-neutral-500">Manage and monitor your current clients</p>
+                    </div>
+                    <table className="min-w-full text-left text-sm text-neutral-500">
+                        <thead>
+                            <tr className="grid grid-cols-3">
+                                <th className="px-7 py-4">Title</th>
+                                <th className="px-7 py-4">Date</th>
+                                <th className="px-7 py-4 hidden md:block">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {projects.map((project) => (
+                                <tr key={project.id} className="grid grid-cols-3 hover:bg-[#161616] border-t border-neutral-800">
+                                    <td className="text-[#eae8e0] font-bold px-7 py-4"><Link target="_blank" href={project.url}>{project.title}</Link></td>
+                                    <td className="px-7 py-4 hidden md:block">{new Date(project.created_at).toLocaleDateString()}</td>
+                                    <td className="px-7 py-4 hidden md:block">{project.note}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
         </div>
     )
 }

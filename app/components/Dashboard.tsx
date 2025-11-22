@@ -6,7 +6,7 @@ import Link from "next/link";
 
 type Client = {
   id: number;
-  name: string | null;
+  title: string | null;
   email: string | null;
   projects: number | null;
   status: string | null;
@@ -125,8 +125,6 @@ export default function Dashboard() {
         
     },[])
 
-    console.log(newClients)
-
     const formatNumber = (value:number) => {
         return new Intl.NumberFormat("no-NO").format(value);
     }
@@ -181,21 +179,23 @@ export default function Dashboard() {
                         <p className="text-sm text-neutral-500">Manage and monitor your current clients</p>
                     </div>
                     <table className="min-w-full text-left text-sm text-neutral-500">
-                        <thead className="border-b border-neutral-800">
-                            <tr className="grid grid-cols-2 md:grid-cols-4">
+                        <thead>
+                            <tr className="grid grid-cols-2 md:grid-cols-5">
                                 <th className="px-7 py-4">Client</th>
                                 <th className="px-7 py-4 hidden md:block">Email</th>
                                 <th className="px-7 py-4 hidden md:block">Status</th>
-                                <th className="px-7 py-4">Revenue</th>
+                                <th className="px-7 py-4 hidden md:block text-right">Maintenance</th>
+                                <th className="px-7 py-4 text-right">Revenue</th>
                             </tr>
                         </thead>
                         <tbody>
                             {clients.map((client) => (
-                                <tr key={client.id} className="grid grid-cols-2 md:grid-cols-4 hover:bg-[#161616]">
-                                    <td className="text-[#eae8e0] font-bold px-7 py-4"><Link href={`../client/${client.id}`}>{client.name}</Link></td>
+                                <tr key={client.id} className="grid grid-cols-2 md:grid-cols-5 hover:bg-[#161616] border-t border-neutral-800">
+                                    <td className="text-[#eae8e0] font-bold px-7 py-4"><Link href={`../client/${client.id}`}>{client.title}</Link></td>
                                     <td className="px-7 py-4 hidden md:block">{client.email}</td>
                                     <td className={`px-7 py-4 ${client.status} hidden md:block font-bold`}>{client.status?.toUpperCase()}</td>
-                                    <td className="text-[#eae8e0] font-bold px-7 py-4">kr {formatNumber(client.revenue)}</td>
+                                    <td className={`px-7 py-4 ${client.maintenance ? 'text-[#eae8e0] font-bold' : ''} hidden md:block text-right`}>{client.maintenance}</td>
+                                    <td className="text-[#eae8e0] font-bold px-7 py-4 text-right">kr {formatNumber(client.revenue)}</td>
                                 </tr>
                             ))}
                         </tbody>

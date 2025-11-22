@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 
 type Client = {
     id: number;
-    name: string;
+    title: string;
     email: string;
     projects: number;
     status: string;
@@ -59,7 +59,7 @@ export default function Projects() {
             {client && (
                 <div key={client[0]?.id}>
                     <div className="mb-5">
-                        <h1 className="text-2xl font-bold mb-2">{client[0]?.name}</h1>
+                        <h1 className="text-2xl font-bold mb-2">{client[0]?.title}</h1>
                         <p className={`${client[0]?.status} text-sm`}>{client[0]?.status}</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
